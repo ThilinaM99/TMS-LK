@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMS-VPN - Support Packages</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Add this animation code */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .icon-pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        
+        .provider-card:hover .icon-container {
+            animation: pulse 1s infinite ease-in-out;
+        }
+        
+        /* Add squircle style for the logo */
+        .squircle {
+            border-radius: 30%;
+            mask-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0C85 0 100 15 100 50C100 85 85 100 50 100C15 100 0 85 0 50C0 15 15 0 50 0Z' fill='black'/%3E%3C/svg%3E");
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0C85 0 100 15 100 50C100 85 85 100 50 100C15 100 0 85 0 50C0 15 15 0 50 0Z' fill='black'/%3E%3C/svg%3E");
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center p-4 bg-blue-600 shadow-md">
+        <div class="flex items-center">
+            <div class="flex items-center space-x-2">
+                <img src="https://i.ibb.co/0yLMJLXk/image.png" alt="Logo" class="w-10 h-10 squircle transition-transform duration-300 ease-in-out transform hover:scale-110">
+                <a href="./" class="text-white font-bold text-lg ">| TMS<span class="text-red-500 ">-</span>VPN STORE</a>
+            </div>
+        </div>
+        <div class="hidden md:flex space-x-4 text-white">
+            <a href="./" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+                <i class="fas fa-home mr-2"></i>Home
+            </a>
+            <a href="./#plans" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+                <i class="fas fa-cogs mr-2"></i>Services
+            </a>
+            <a href="./support.html" class="p-2 px-4 bg-white text-black rounded-full">
+                <i class="fas fa-headset mr-2"></i>Support Packages
+            </a>
+            <a href="https://wa.me/+94785406391" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+                <i class="fab fa-whatsapp mr-2"></i>Contact
+            </a>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden">
+            <button id="hamburger" class="text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+    
+    <div id="mobile-menu" class="md:hidden bg-blue-600 text-white space-y-4 p-4 hidden">
+        <a href="./" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Home</a>
+        <a href="./#plans" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Services</a>
+        <a href="./support.html" class="block p-2 bg-white text-black rounded-md">Support Packages</a>
+        <a href="https://wa.me/+94785406391" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Contact</a>
+    </div>
+    
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- Header Section -->
+    <div class="bg-blue-600 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">VPN Bypass Working Packages</h1>
+            <p class="text-xl">Find the perfect package for your needs</p>
+        </div>
+    </div>
+
+    <!-- Support Packages Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold"></h2>
+                <p class="text-xl font-semibold text-blue-600 mt-2">Compatible with TMS-VPN service</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Dialog Section -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 provider-card">
+                    <div class="bg-red-600 text-white p-4">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <span class="bg-white rounded-full p-1 mr-2 flex items-center justify-center w-8 h-8 icon-container">
+                                <i class="fas fa-wifi text-red-600"></i>
+                            </span>
+                            <span>Dialog Broadband/WIFI</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">724 Work And Learn Lite - No Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">295 Work and learn Lite - 30GB Limit</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hutch Section -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="bg-[#F6851F] text-white p-4">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <span class="bg-white rounded-full p-1 mr-2 flex items-center justify-center w-8 h-8">
+                                <i class="fas fa-mobile-alt text-[#F6851F]"></i>
+                            </span>
+                            <span>Hutch Mobile</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Hutch Gamer 505 Package = 60GB Fup + Night Time Unlimited</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Hutch 265 Gamer Package = 30GB Fup + Night Time Unlimited</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Hutch 224 Work and learn = 30GB Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Hutch 745 Work And Learn = 50GB Limit</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mobitel Section -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="bg-blue-600 text-white p-4">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <span class="bg-white rounded-full p-1 mr-2 flex items-center justify-center w-8 h-8">
+                                <i class="fas fa-signal text-blue-600"></i>
+                            </span>
+                            <span>Mobitel Mobile</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Mobitel 222 Work And Learn = 25GB Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Mobitel 874 Work And Learn = 50GB Limit</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Airtel Section -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="bg-red-600 text-white p-4">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <span class="bg-white rounded-full p-1 mr-2 flex items-center justify-center w-8 h-8">
+                                <i class="fas fa-broadcast-tower text-red-600"></i>
+                            </span>
+                            <span>Airtel Mobile</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Airtel 215 Work And Learn = 30GB Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Airtel 148 Social Media 7 Days = No Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Airtel 498 Social Media 28 Days = No Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Airtel 1630 Social Media = No Limit</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SLT Section -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden md:col-span-2">
+                    <div class="bg-blue-600 text-white p-4">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <span class="bg-white rounded-full p-1 mr-2 flex items-center justify-center w-8 h-8">
+                                <i class="fas fa-network-wired text-blue-600"></i>
+                            </span>
+                            <span>SLT Fiber/4G</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Meet Max 490 Work and Learn = 100GB Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Meet Max 195 Work and Learn = 30GB Limit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-500 mr-2">★</span>
+                                <span class="font-medium">Unlimited Entertainment = No Limit</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-gray-600">© 𝙏𝙈𝙎-𝙑𝙋𝙉</p>
+                <a href="https://wa.me/+94785406391" class="mt-4 inline-block bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-600 transition duration-300">
+                    <i class="fab fa-whatsapp mr-2"></i>Contact Us for Support
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#2563EB] text-white py-6 mt-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+            <div class="flex space-x-6">
+                <a href="https://wa.me/+94785406391" class="hover:text-green-400" aria-label="Whatsapp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1BAZU6sT6E/" class="hover:text-blue-500" aria-label="Facebook">
+                    <i class="fab fa-facebook-f text-xl"></i>
+                </a>
+                <a href="https://t.me/thiLiya_zz" class="hover:text-blue-500" aria-label="Telegram">
+                    <i class="fab fa-telegram text-xl"></i>
+                </a>
+            </div>
+            <div class="mt-4 md:mt-0 text-center">
+                <p class="text-sm">© 2025 Project TMS-VPN. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

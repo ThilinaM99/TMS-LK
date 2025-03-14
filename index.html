@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMS-VPN - VPN Solution</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Animation styles */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .scale-in {
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        .bounce-in {
+            animation: bounceIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Add this squircle style for the logo */
+        .squircle {
+            border-radius: 30%;
+            mask-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0C85 0 100 15 100 50C100 85 85 100 50 100C15 100 0 85 0 50C0 15 15 0 50 0Z' fill='black'/%3E%3C/svg%3E");
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0C85 0 100 15 100 50C100 85 85 100 50 100C15 100 0 85 0 50C0 15 15 0 50 0Z' fill='black'/%3E%3C/svg%3E");
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+<nav class="flex justify-between items-center p-4 bg-blue-600 shadow-md">
+    <div class="flex items-center">
+      <div class="flex items-center space-x-2">
+        <img src="https://i.ibb.co/0yLMJLXk/image.png" alt="Logo" class="w-10 h-10 squircle transition-transform duration-300 ease-in-out transform hover:scale-110">
+        <a href="./" class="text-white font-bold text-lg ">| TMS<span class="text-red-500 ">-</span>VPN STORE</a>
+      </div>
+    </div>
+    <div class="hidden md:flex space-x-4 text-white">
+        <a href="./" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+          <i class="fas fa-home mr-2"></i>Home
+        </a>
+        <a href="#plans" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+          <i class="fas fa-cogs mr-2"></i>Services
+        </a>
+        <a href="./support.html" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+          <i class="fas fa-headset mr-2"></i>Support Packages
+        </a>
+        <a href="https://wa.me/+94785406391" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+          <i class="fab fa-whatsapp mr-2"></i>Contact
+        </a>
+      </div>
+      
+        <!-- Mobile Menu -->
+    <div class="md:hidden">
+      <button id="hamburger" class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  
+  <div id="mobile-menu" class="md:hidden bg-blue-600 text-white space-y-4 p-4 hidden">
+      <a href="./" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Home</a>
+      <a href="#plans" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Services</a>
+      <a href="./support.html" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Support Packages</a>
+      <a href="https://wa.me/+94785406391" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Contact</a>
+    </div>
+  
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  
+    const mobileToolsBtn = document.getElementById('mobile-tools-btn');
+    const mobileToolsDropdown = document.getElementById('mobile-tools-dropdown');
+    const mobileToolsArrow = document.getElementById('mobile-tools-arrow');
+  
+    mobileToolsBtn.addEventListener('click', () => {
+      mobileToolsDropdown.classList.toggle('hidden');
+      mobileToolsArrow.classList.toggle('rotate-180');
+    });
+  </script>
+  
+
+
+    <section class="pb-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-center">
+                <div class="w-full md:w-1/2 fade-in">
+                    <img class="w-full h-auto rounded-lg" src="https://i.ibb.co/DDdL69HB/homw.webp" alt="TMS-VPN" />
+                </div>
+                <div class="w-full md:w-1/2 mt-5 md:mt-0 text-center md:text-left slide-up">
+                    <h1 class="text-4xl font-medium leading-tight">
+                        Get Fast Internet<br />with
+                        <span class="font-bold text-blue-600">TMS-VPN </span>VPN Service
+                    </h1>
+                    <p class="mt-3 mb-4 text-lg text-gray-700">
+                        Protect your privacy and enjoy unrestricted internet access with our fast, secure, and easy-to-use VPN service. Experience the Internet like never before!
+                    </p>
+                    <a href="#plans"
+                       class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 pulse">
+                       Get Access
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-6">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
+                <div class="flex flex-col items-center bg-blue-50 p-4 rounded-lg hover-scale">
+                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 pulse">
+                        <i class="fas fa-user-alt fa-2x"></i>
+                    </div>
+                    <p class="text-xl font-semibold text-gray-800">200+</p>
+                    <p class="text-gray-600">Users</p>
+                </div>
+                <div class="flex flex-col items-center bg-blue-50 p-4 rounded-lg hover-scale">
+                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 pulse">
+                        <i class="fas fa-globe-americas fa-2x"></i>
+                    </div>
+                    <p class="text-xl font-semibold text-gray-800">Singapore</p>
+                    <p class="text-gray-600">Location</p>
+                </div>
+                <div class="flex flex-col items-center bg-blue-50 p-4 rounded-lg hover-scale">
+                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 pulse">
+                        <i class="fas fa-hdd fa-2x"></i>
+                    </div>
+                    <p class="text-xl font-semibold text-gray-800">5+</p>
+                    <p class="text-gray-600">Servers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div id="plans" class="p-6 text-black text-center">
+    <h1 class="text-3xl font-bold fade-in">Unlock Your Perfect VPN Plan</h1>
+    <p class="text-gray-500 slide-up">Choose a plan that suits your needs</p>
+</div>
+
+<div class="flex flex-wrap justify-center gap-6 p-6">
+    <!-- Basic Plan -->
+    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale fade-in" style="animation-delay: 0.1s;">
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800">Basic</h2>
+            <p class="text-gray-500">For individuals</p>
+            <p class="text-3xl font-bold mt-4">Rs.300<span class="text-sm text-gray-500">/mo</span></p>
+            <ul class="mt-4 space-y-4">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">3 Device Access</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">100GB Bandwidth</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Encrypted Connection</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
+            </ul>
+        </div>
+        <div class="mt-auto pt-6">
+            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Basic%20Plan%20(100GB)%20for%20Rs300/mo" target="_blank" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+        </div>
+    </div>
+
+    <!-- Standard Plan -->
+    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale slide-up" style="animation-delay: 0.2s;">
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800">Standard</h2>
+            <p class="text-gray-500">For small teams</p>
+            <p class="text-3xl font-bold mt-4">Rs.400<span class="text-sm text-gray-500">/mo</span></p>
+            <ul class="mt-4 space-y-4">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">4 Device Access</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">200GB Bandwidth</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Encrypted Connection</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
+            </ul>
+        </div>
+        <div class="mt-auto pt-6">
+            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Standard%20Plan%20(200GB)%20for%20Rs400/mo" target="_blank" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+        </div>
+    </div>
+
+    <!-- Pro Plan -->
+    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale scale-in" style="animation-delay: 0.3s;">
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800">Pro</h2>
+            <p class="text-gray-500">For power users</p>
+            <p class="text-3xl font-bold mt-4">Rs.500<span class="text-sm text-gray-500">/mo</span></p>
+            <ul class="mt-4 space-y-4">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">6 Device Access</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">350GB Bandwidth</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Enhanced Encryption</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
+            </ul>
+        </div>
+        <div class="mt-auto pt-6">
+            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Pro%20Plan%20(350GB)%20for%20Rs500/mo" target="_blank" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+        </div>
+    </div>
+
+    <!-- Premium Plan -->
+    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale bounce-in" style="animation-delay: 0.4s;">
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800">Premium</h2>
+            <p class="text-gray-500">For businesses</p>
+            <p class="text-3xl font-bold mt-4">Rs.650<span class="text-sm text-gray-500">/mo</span></p>
+            <ul class="mt-4 space-y-4">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">8 Device Access</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">500GB Bandwidth</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Encrypted Connection</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
+            </ul>
+        </div>
+        <div class="mt-auto pt-6">
+            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Premium%20Plan%20(500GB)%20for%20Rs650/mo" target="_blank" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+        </div>
+    </div>
+
+    <!-- Ultimate Plan -->
+    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale fade-in" style="animation-delay: 0.5s;">
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800">Ultimate</h2>
+            <p class="text-gray-500">For enterprise solutions</p>
+            <p class="text-3xl font-bold mt-4">Rs.1000<span class="text-sm text-gray-500">/mo</span></p>
+            <ul class="mt-4 space-y-4">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Unlimited Device Access</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Unlimited Bandwidth</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Military-grade Encryption</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">24/7 Premium Support</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
+            </ul>
+        </div>
+        <div class="mt-auto pt-6">
+            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Ultimate%20Plan%20(Unlimited)%20for%20Rs1000/mo" target="_blank" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+        </div>
+    </div>
+</div>
+
+<!-- Add this to your style section in the head -->
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+        opacity: 0;
+    }
+</style>
+
+
+<section class="bg-gray-100 py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8 fade-in">Features</h2>
+      
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="w-full md:w-1/2 space-y-4 slide-up">
+          <ul class="space-y-4">
+            <li class="flex items-center hover-scale">
+              <svg class="w-6 h-6 text-green-500 mr-2 pulse" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Amazing performance.</span>
+            </li>
+            <!-- Apply the same hover-scale class to all list items -->
+            <li class="flex items-center">
+              <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Connect Anywhere.</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Fast and secure.</span>
+            </li><li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Internet without limitations.</span>
+              </li><li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>24/7 Customer Support</span>
+              </li>
+          </ul>
+        </div>
+        
+        <div class="w-full md:w-1/2 flex justify-center mt-8 md:mt-0">
+          <img src="https://i.ibb.co/1JrvXjTs/9571053.webp" alt="Features Image" class="w-full max-w-md h-auto mx-auto">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+<!-- The "What Our Users Say" section has been removed -->
+
+<style>
+  html {
+      scroll-behavior: smooth;
+  }
+</style>
+
+<!-- footer -->
+
+<footer class="bg-[#2563EB] text-white py-6 mt-6">
+  <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+    <div class="flex space-x-6">
+      
+      <a href="https://wa.me/+94785406391" class="hover:text-green-400" aria-label="Whatsapp">
+        <i class="fab fa-whatsapp text-xl"></i>
+      </a>
+      <a href="https://www.facebook.com/share/1BAZU6sT6E/" class="hover:text-blue-500" aria-label="Facebook">
+        <i class="fab fa-facebook-f text-xl"></i>
+      </a>
+      <a href="https://t.me/thiLiya_zz" class="hover:text-blue-500" aria-label="Telegram">
+        <i class="fab fa-telegram text-xl"></i>
+      </a>
+    </div>
+    <div class="mt-4 md:mt-0 text-center">
+      <p class="text-sm">© 2025 Project TMS-VPN. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body>
+</html>
+
+<script>
+  // Animation on scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .scale-in, .bounce-in');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Make the element visible
+          entry.target.style.opacity = '1';
+          // Reset any transform that might be hiding the content
+          entry.target.style.transform = 'none';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    animatedElements.forEach(el => {
+      // Set initial state
+      el.style.opacity = '0';
+      observer.observe(el);
+    });
+  });
+</script>
+</body>
+</html>
