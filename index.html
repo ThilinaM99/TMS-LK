@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TMS-VPN Store</title>
+    <title>TMS-VPN - VPN Solution</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
         
         /* Animation styles */
         .fade-in {
-            animation: fadeIn 1s ease-in;
+            animation: fadeIn 1.2s ease-in;
         }
         
         .slide-up {
@@ -39,6 +39,7 @@
             animation: bounceIn 1s ease;
         }
         
+        /* Improved animations with better timing and easing */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -67,12 +68,51 @@
             100% { transform: scale(1); opacity: 1; }
         }
         
+        /* New animations */
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right, 
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 6s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translateX(-300%); }
+            100% { transform: rotate(30deg) translateX(300%); }
+        }
+        
         .hover-scale {
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .hover-scale:hover {
             transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
         /* Add this squircle style for the logo */
@@ -87,16 +127,29 @@
             mask-position: center;
             -webkit-mask-position: center;
         }
+        
+        /* Page transition animation */
+        .page-transition {
+            animation: fadeOut 0.5s ease forwards;
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        /* Removing the Header text animation styles */
     </style>
 </head>
 <body class="bg-gray-50">
 
     <!-- Navbar -->
-<nav class="flex justify-between items-center p-4 bg-blue-600 shadow-md">
+<!-- Navbar - changing from blue-600 to custom gradient -->
+<nav class="flex justify-between items-center p-4 bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] shadow-md">
     <div class="flex items-center">
       <div class="flex items-center space-x-2">
         <img src="https://i.ibb.co/0yLMJLXk/image.png" alt="Logo" class="w-10 h-10 squircle transition-transform duration-300 ease-in-out transform hover:scale-110">
-        <a href="./" class="text-white font-bold text-lg ">| TMS<span class="text-red-500 ">-</span>VPN STORE</a>
+        <a href="./" class="text-white font-bold text-lg border border-white/30 rounded-lg px-2 py-1 hover:bg-white/10 transition-all duration-300">| TMS<span class="text-red-500 ">-</span>VPN STORE</a>
       </div>
     </div>
     <div class="hidden md:flex space-x-4 text-white">
@@ -106,11 +159,11 @@
         <a href="#plans" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
           <i class="fas fa-cogs mr-2"></i>Services
         </a>
-        <a href="./support.html" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
-          <i class="fas fa-headset mr-2"></i>Support Packages
+        <a href="./support.html" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white support-link">
+          <i class="fas fa-headset mr-2"></i>Support Data Packages
         </a>
         <a href="https://wa.me/+94785406391" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
-          <i class="fab fa-whatsapp mr-2"></i>Contact
+          <i class="fab fa-whatsapp mr-2"></i>Contact Us
         </a>
       </div>
       
@@ -124,12 +177,13 @@
     </div>
   </nav>
   
-  <div id="mobile-menu" class="md:hidden bg-blue-600 text-white space-y-4 p-4 hidden">
+  <!-- Mobile menu - changing background color -->
+  <div id="mobile-menu" class="md:hidden bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white space-y-4 p-4 hidden">
       <a href="./" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Home</a>
       <a href="#plans" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Services</a>
-      <a href="./support.html" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Support Packages</a>
+      <a href="./support.html" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white support-link">Support Packages</a>
       <a href="https://wa.me/+94785406391" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Contact</a>
-    </div>
+  </div>
   
   <script>
     const hamburger = document.getElementById('hamburger');
@@ -154,18 +208,28 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center justify-center">
                 <div class="w-full md:w-1/2 fade-in">
-                    <img class="w-full h-auto rounded-lg" src="https://i.ibb.co/DDdL69HB/homw.webp" alt="TMS-VPN" />
+                    <!-- Simplified Lottie animation without loading animation -->
+                    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+                    <dotlottie-player src="https://lottie.host/8c7073b0-7704-4eb9-a95a-9da28d064a23/3dxHo2LuL6.lottie" 
+                        background="transparent" 
+                        speed="1" 
+                        style="width: 100%; height: auto; max-width: 500px; margin: 0 auto;" 
+                        loop 
+                        autoplay
+                        class="float">
+                    </dotlottie-player>
                 </div>
                 <div class="w-full md:w-1/2 mt-5 md:mt-0 text-center md:text-left slide-up">
                     <h1 class="text-4xl font-medium leading-tight">
-                        Get Fast Internet<br />with
-                        <span class="font-bold text-blue-600">TMS-VPN </span>Service
+                        Get Unlimited Data<br />with
+                        <span class="font-bold text-[#036ED9]">TMS-VPN </span>Service
                     </h1>
                     <p class="mt-3 mb-4 text-lg text-gray-700">
                         "Enjoy limitless Browsing, Streaming, And Downloads with our Data plans! No caps, no slow downs, High-Speed internet whenever and wherever you need it. Stay connected without limits!"
                     </p>
+                    <!-- Hero section button -->
                     <a href="#plans"
-                       class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 pulse">
+                       class="inline-block bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-[#036ED9] transition duration-300 ease-in-out transform hover:scale-105 pulse">
                        Get Access
                     </a>
                 </div>
@@ -173,27 +237,27 @@
         </div>
     </section>
 
-
+<!-- Moving the stats section outside the hero section -->
 <section class="py-12 bg-gray-100">
     <div class="container mx-auto px-6">
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
                 <div class="flex flex-col items-center bg-blue-50 p-4 rounded-lg hover-scale">
-                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 pulse">
+                    <div class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white p-4 rounded-full mb-4 pulse">
                         <i class="fas fa-user-alt fa-2x"></i>
                     </div>
                     <p class="text-xl font-semibold text-gray-800">200+</p>
                     <p class="text-gray-600">Users</p>
                 </div>
                 <div class="flex flex-col items-center bg-blue-50 p-4 rounded-lg hover-scale">
-                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 pulse">
+                    <div class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white p-4 rounded-full mb-4 pulse">
                         <i class="fas fa-globe-americas fa-2x"></i>
                     </div>
                     <p class="text-xl font-semibold text-gray-800">Singapore</p>
                     <p class="text-gray-600">Location</p>
                 </div>
                 <div class="flex flex-col items-center bg-blue-50 p-4 rounded-lg hover-scale">
-                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 pulse">
+                    <div class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white p-4 rounded-full mb-4 pulse">
                         <i class="fas fa-hdd fa-2x"></i>
                     </div>
                     <p class="text-xl font-semibold text-gray-800">5+</p>
@@ -207,12 +271,12 @@
 
 <div id="plans" class="p-6 text-black text-center">
     <h1 class="text-3xl font-bold fade-in">"Find Your Perfect VPN Plan – Secure, Fast, and Reliable!"</h1>
-    <p class="text-gray-500 slide-up">Choose a plan that suits your needs</p>
+    <p class="text-gray-500 slide-up">Simplified plans, maximum benefits</p>
 </div>
 
 <div class="flex flex-wrap justify-center gap-6 p-6">
     <!-- Basic Plan -->
-    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale fade-in" style="animation-delay: 0.1s;">
+    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale fade-in shine" style="animation-delay: 0.1s;">
         <div>
             <h2 class="text-2xl font-semibold text-gray-800">Basic</h2>
             <p class="text-gray-500">For individuals</p>
@@ -221,11 +285,12 @@
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">3 Device Access</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">100GB Bandwidth</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Encrypted Connection</span></li>
+				<li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">24/7 Support</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
             </ul>
         </div>
         <div class="mt-auto pt-6">
-            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Basic%20Plan%20(100GB)%20for%20Rs300/mo" target="_blank" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Basic%20Plan%20(100GB)%20for%20Rs300/mo" target="_blank" class="w-full bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-2 text-center rounded-lg hover:bg-[#036ED9] inline-block">Choose Plan</a>
         </div>
     </div>
 
@@ -239,6 +304,7 @@
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">4 Device Access</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">200GB Bandwidth</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Encrypted Connection</span></li>
+				<li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">24/7 Support</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
             </ul>
         </div>
@@ -257,6 +323,7 @@
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">6 Device Access</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">350GB Bandwidth</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Enhanced Encryption</span></li>
+				<li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">24/7 Support</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
             </ul>
         </div>
@@ -275,6 +342,7 @@
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">8 Device Access</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">500GB Bandwidth</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Encrypted Connection</span></li>
+				<li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">24/7 Support</span></li>
                 <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
             </ul>
         </div>
@@ -373,11 +441,9 @@
 </style>
 
 <!-- footer -->
-
-<footer class="bg-[#2563EB] text-white py-6 mt-6">
+<footer class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-6 mt-6">
   <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
     <div class="flex space-x-6">
-      
       <a href="https://wa.me/+94785406391" class="hover:text-green-400" aria-label="Whatsapp">
         <i class="fab fa-whatsapp text-xl"></i>
       </a>
@@ -401,26 +467,48 @@
 </html>
 
 <script>
-  // Animation on scroll
   document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .scale-in, .bounce-in');
+    // Update any remaining blue-600 elements to the new gradient
+    const blueElements = document.querySelectorAll('.bg-blue-600');
+    blueElements.forEach(el => {
+      el.classList.remove('bg-blue-600');
+      el.classList.add('bg-gradient-to-r', 'from-[#0FF0B3]', 'to-[#036ED9]');
+    });
     
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Make the element visible
-          entry.target.style.opacity = '1';
-          // Reset any transform that might be hiding the content
-          entry.target.style.transform = 'none';
-          observer.unobserve(entry.target);
-        }
+    // Update hover states
+    const blueHoverElements = document.querySelectorAll('.hover\\:bg-blue-700');
+    blueHoverElements.forEach(el => {
+      el.classList.remove('hover:bg-blue-700');
+      el.classList.add('hover:bg-[#036ED9]');
+    });
+    
+    // Page transition for support link
+    const supportLinks = document.querySelectorAll('.support-link');
+    supportLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        
+        // Add the transition effect to the body
+        document.body.classList.add('page-transition');
+        
+        // Navigate to the new page after animation completes
+        setTimeout(() => {
+          window.location.href = href;
+        }, 500);
       });
-    }, { threshold: 0.1 });
+    });
     
-    animatedElements.forEach(el => {
-      // Set initial state
-      el.style.opacity = '0';
-      observer.observe(el);
+    // Add hover animation to all buttons
+    const buttons = document.querySelectorAll('a.bg-blue-600');
+    buttons.forEach(button => {
+      button.classList.add('transition-all', 'duration-300');
+      button.addEventListener('mouseenter', function() {
+        this.classList.add('shadow-lg');
+      });
+      button.addEventListener('mouseleave', function() {
+        this.classList.remove('shadow-lg');
+      });
     });
   });
 </script>
