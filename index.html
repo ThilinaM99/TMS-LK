@@ -162,9 +162,24 @@
         <a href="./support.html" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white support-link">
           <i class="fas fa-headset mr-2"></i>Support Data Packages
         </a>
-        <a href="https://wa.me/+94785406391" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
-          <i class="fab fa-whatsapp mr-2"></i>Contact Us
-        </a>
+        <!-- Replace the Contact Us link with a dropdown -->
+        <div class="relative group">
+          <button id="desktop-contact-btn" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white flex items-center">
+            <i class="fas fa-address-book mr-2"></i>Contact Us
+            <i id="desktop-contact-arrow" class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300"></i>
+          </button>
+          <div id="desktop-contact-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden">
+            <a href="https://wa.me/+94785406391" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-100">
+              <i class="fab fa-whatsapp text-green-500 mr-2"></i>WhatsApp
+            </a>
+            <a href="https://www.facebook.com/share/1BAZU6sT6E/" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-100">
+              <i class="fab fa-facebook-f text-blue-600 mr-2"></i>Facebook
+            </a>
+            <a href="https://t.me/thiLiya_zz" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-100">
+              <i class="fab fa-telegram text-blue-500 mr-2"></i>Telegram
+            </a>
+          </div>
+        </div>
       </div>
       
         <!-- Mobile Menu -->
@@ -182,7 +197,25 @@
       <a href="./" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Home</a>
       <a href="#plans" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Services</a>
       <a href="./support.html" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white support-link">Support Packages</a>
-      <a href="https://wa.me/+94785406391" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Contact</a>
+      
+      <!-- Replace the Contact link with a dropdown -->
+      <div class="relative">
+        <button id="mobile-contact-btn" class="flex justify-between items-center w-full p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">
+          Contact
+          <i id="mobile-contact-arrow" class="fas fa-chevron-down transition-transform duration-300"></i>
+        </button>
+        <div id="mobile-contact-dropdown" class="mt-2 pl-4 space-y-2 hidden">
+          <a href="https://wa.me/+94785406391" class="flex items-center p-2 hover:bg-white/10 rounded">
+            <i class="fab fa-whatsapp text-green-300 mr-2"></i>WhatsApp
+          </a>
+          <a href="https://www.facebook.com/share/1BAZU6sT6E/" class="flex items-center p-2 hover:bg-white/10 rounded">
+            <i class="fab fa-facebook-f text-blue-300 mr-2"></i>Facebook
+          </a>
+          <a href="https://t.me/thiLiya_zz" class="flex items-center p-2 hover:bg-white/10 rounded">
+            <i class="fab fa-telegram text-blue-300 mr-2"></i>Telegram
+          </a>
+        </div>
+      </div>
   </div>
   
   <script>
@@ -196,9 +229,40 @@
     const mobileToolsDropdown = document.getElementById('mobile-tools-dropdown');
     const mobileToolsArrow = document.getElementById('mobile-tools-arrow');
   
-    mobileToolsBtn.addEventListener('click', () => {
-      mobileToolsDropdown.classList.toggle('hidden');
-      mobileToolsArrow.classList.toggle('rotate-180');
+    if(mobileToolsBtn) {
+      mobileToolsBtn.addEventListener('click', () => {
+        mobileToolsDropdown.classList.toggle('hidden');
+        mobileToolsArrow.classList.toggle('rotate-180');
+      });
+    }
+    
+    // Add event listener for the mobile contact dropdown
+    const mobileContactBtn = document.getElementById('mobile-contact-btn');
+    const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+    const mobileContactArrow = document.getElementById('mobile-contact-arrow');
+    
+    mobileContactBtn.addEventListener('click', () => {
+      mobileContactDropdown.classList.toggle('hidden');
+      mobileContactArrow.classList.toggle('rotate-180');
+    });
+    
+    // Add desktop contact dropdown functionality
+    const desktopContactBtn = document.getElementById('desktop-contact-btn');
+    const desktopContactDropdown = document.getElementById('desktop-contact-dropdown');
+    const desktopContactArrow = document.getElementById('desktop-contact-arrow');
+    
+    desktopContactBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      desktopContactDropdown.classList.toggle('hidden');
+      desktopContactArrow.classList.toggle('rotate-180');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!desktopContactBtn.contains(e.target) && !desktopContactDropdown.contains(e.target)) {
+        desktopContactDropdown.classList.add('hidden');
+        desktopContactArrow.classList.remove('rotate-180');
+      }
     });
   </script>
   
@@ -275,6 +339,25 @@
 </div>
 
 <div class="flex flex-wrap justify-center gap-6 p-6">
+    <!-- Starter Plan -->
+    <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale fade-in shine" style="animation-delay: 0s;">
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800">Starter</h2>
+            <p class="text-gray-500">For beginners</p>
+            <p class="text-3xl font-bold mt-4">Rs.200<span class="text-sm text-gray-500">/mo</span></p>
+            <ul class="mt-4 space-y-4">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">2 Device Access</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">50GB Bandwidth</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Encrypted Connection</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">24/7 Support</span></li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-2"></i> <span class="text-green-600">Works on All Devices</span></li>
+            </ul>
+        </div>
+        <div class="mt-auto pt-6">
+            <a href="https://wa.me/+94785406391?text=I%20want%20to%20purchase%20the%20Starter%20Plan%20(50GB)%20for%20Rs200/mo" target="_blank" class="w-full bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-2 text-center rounded-lg hover:bg-[#036ED9] inline-block">Choose Plan</a>
+        </div>
+    </div>
+
     <!-- Basic Plan -->
     <div class="max-w-sm w-64 bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col h-full hover-scale fade-in shine" style="animation-delay: 0.1s;">
         <div>
