@@ -101,11 +101,6 @@
             animation: shine 6s infinite;
         }
         
-        @keyframes shine {
-            0% { transform: rotate(30deg) translateX(-300%); }
-            100% { transform: rotate(30deg) translateX(300%); }
-        }
-        
         .hover-scale {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -159,10 +154,32 @@
         <a href="#plans" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
           <i class="fas fa-cogs mr-2"></i>Services
         </a>
+        <!-- Add Tools dropdown -->
+        <div class="relative group">
+          <button id="desktop-tools-btn" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white flex items-center">
+            <i class="fas fa-tools mr-2"></i>Tools
+            <i id="desktop-tools-arrow" class="fas fa-chevron-down ml-1 text-xs transition-transform duration-300"></i>
+          </button>
+          <div id="desktop-tools-dropdown" class="absolute right-0 mt-2 w-72 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden">
+            <div id="ip-tool" class="p-4 border-b">
+              <h3 class="font-semibold text-gray-800 mb-2 text-center">What is My IP Address?</h3>
+              <!-- Desktop IP result element -->
+              <div id="ip-result" class="text-center p-3 bg-gray-100 rounded-lg mb-3 font-medium border border-gray-200 shadow-sm text-black">
+                Click to check your IP
+              </div>
+              <div id="location-result" class="p-3 bg-gray-100 rounded-lg mb-3 border border-gray-200 shadow-sm hidden">
+                <div class="text-sm text-gray-600">Location information will appear here</div>
+              </div>
+              <button id="check-ip-btn" class="w-full bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-3 text-center rounded-lg hover:bg-[#036ED9] text-sm font-medium shadow-md transition-all duration-300 hover:shadow-lg">
+                <i class="fas fa-globe mr-2"></i>Check My IP
+              </button>
+            </div>
+          </div>
+        </div>
         <a href="./support.html" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white support-link">
           <i class="fas fa-headset mr-2"></i>Support Data Packages
         </a>
-        <!-- Replace the Contact Us link with a dropdown -->
+        <!-- Contact Us dropdown remains unchanged -->
         <div class="relative group">
           <button id="desktop-contact-btn" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white flex items-center">
             <i class="fas fa-address-book mr-2"></i>Contact Us
@@ -196,9 +213,33 @@
   <div id="mobile-menu" class="md:hidden bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white space-y-4 p-4 hidden">
       <a href="./" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Home</a>
       <a href="#plans" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">Services</a>
+      
+      <!-- Add Tools dropdown for mobile -->
+      <div class="relative">
+        <button id="mobile-tools-btn" class="flex justify-between items-center w-full p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">
+          Tools
+          <i id="mobile-tools-arrow" class="fas fa-chevron-down transition-transform duration-300"></i>
+        </button>
+        <div id="mobile-tools-dropdown" class="mt-2 pl-4 space-y-2 hidden">
+          <div class="bg-white/10 p-4 rounded-lg">
+            <h3 class="font-semibold text-white mb-3 text-center text-lg">What is My IP Address?</h3>
+            <!-- Mobile IP result element -->
+            <div id="mobile-ip-result" class="text-center p-3 bg-white/30 rounded-lg mb-3 text-black font-medium border border-white/20 shadow-sm">
+              Click to check your IP
+            </div>
+            <div id="mobile-location-result" class="p-3 bg-white/30 rounded-lg mb-3 text-white border border-white/20 shadow-sm hidden">
+              <div class="text-sm">Location information will appear here</div>
+            </div>
+            <button id="mobile-check-ip-btn" class="w-full bg-white text-[#036ED9] py-3 text-center rounded-lg hover:bg-gray-100 text-sm font-medium shadow-md transition-all duration-300 hover:shadow-lg">
+              <i class="fas fa-globe mr-2"></i>Check My IP
+            </button>
+          </div>
+        </div>
+      </div>
+      
       <a href="./support.html" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white support-link">Support Packages</a>
       
-      <!-- Replace the Contact link with a dropdown -->
+      <!-- Contact dropdown remains unchanged -->
       <div class="relative">
         <button id="mobile-contact-btn" class="flex justify-between items-center w-full p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white">
           Contact
@@ -225,16 +266,131 @@
       mobileMenu.classList.toggle('hidden');
     });
   
+    // Tools dropdown functionality
+    const desktopToolsBtn = document.getElementById('desktop-tools-btn');
+    const desktopToolsDropdown = document.getElementById('desktop-tools-dropdown');
+    const desktopToolsArrow = document.getElementById('desktop-tools-arrow');
+    
+    desktopToolsBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      desktopToolsDropdown.classList.toggle('hidden');
+      desktopToolsArrow.classList.toggle('rotate-180');
+    });
+    
+    // Mobile tools dropdown
     const mobileToolsBtn = document.getElementById('mobile-tools-btn');
     const mobileToolsDropdown = document.getElementById('mobile-tools-dropdown');
     const mobileToolsArrow = document.getElementById('mobile-tools-arrow');
-  
-    if(mobileToolsBtn) {
-      mobileToolsBtn.addEventListener('click', () => {
-        mobileToolsDropdown.classList.toggle('hidden');
-        mobileToolsArrow.classList.toggle('rotate-180');
-      });
+    
+    mobileToolsBtn.addEventListener('click', () => {
+      mobileToolsDropdown.classList.toggle('hidden');
+      mobileToolsArrow.classList.toggle('rotate-180');
+    });
+    
+    // IP Address checker functionality
+    const checkIpBtn = document.getElementById('check-ip-btn');
+    const ipResult = document.getElementById('ip-result');
+    const locationResult = document.getElementById('location-result');
+    const mobileCheckIpBtn = document.getElementById('mobile-check-ip-btn');
+    const mobileIpResult = document.getElementById('mobile-ip-result');
+    const mobileLocationResult = document.getElementById('mobile-location-result');
+    
+    // Function to fetch IP address and location
+    async function fetchIpAddress() {
+      try {
+        ipResult.innerHTML = '<div class="flex items-center justify-center"><div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500 mr-2"></div> Loading...</div>';
+        mobileIpResult.innerHTML = '<div class="flex items-center justify-center"><div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div> Loading...</div>';
+        
+        locationResult.classList.remove('hidden');
+        mobileLocationResult.classList.remove('hidden');
+        locationResult.innerHTML = '<div class="flex items-center justify-center"><div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500 mr-2"></div> Loading location data...</div>';
+        mobileLocationResult.innerHTML = '<div class="flex items-center justify-center"><div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div> Loading location data...</div>';
+        
+        // Using ipapi.co which provides both IP and location data
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        
+        if (data.error) {
+          throw new Error(data.reason || 'Failed to get location data');
+        }
+        
+        // Display IP address with better styling
+        ipResult.innerHTML = `
+          <div class="flex items-center justify-center">
+            <i class="fas fa-network-wired text-blue-500 mr-2"></i>
+            <span class="font-semibold text-black">Your IP:</span> 
+            <span class="ml-2 text-black font-bold">${data.ip}</span>
+          </div>`;
+        mobileIpResult.innerHTML = `
+          <div class="flex items-center justify-center">
+            <i class="fas fa-network-wired text-white mr-2"></i>
+            <span class="font-semibold text-black">Your IP:</span> 
+            <span class="ml-2 text-black font-bold">${data.ip}</span>
+          </div>`;
+        
+        // Display location information with better styling
+        const locationHTML = `
+          <div class="text-left">
+            <div class="grid grid-cols-2 gap-2">
+              <div class="flex items-center"><i class="fas fa-city text-blue-500 mr-2"></i><span class="font-semibold text-black">City:</span></div>
+              <div class="text-black">${data.city || 'Unknown'}</div>
+              
+              <div class="flex items-center"><i class="fas fa-map text-blue-500 mr-2"></i><span class="font-semibold text-black">Region:</span></div>
+              <div class="text-black">${data.region || 'Unknown'}</div>
+              
+              <div class="flex items-center"><i class="fas fa-flag text-blue-500 mr-2"></i><span class="font-semibold text-black">Country:</span></div>
+              <div class="text-black">${data.country_name || 'Unknown'}</div>
+              
+              <div class="flex items-center"><i class="fas fa-building text-blue-500 mr-2"></i><span class="font-semibold text-black">ISP:</span></div>
+              <div class="text-black">${data.org || 'Unknown'}</div>
+            </div>
+          </div>
+        `;
+        
+        const mobileLocationHTML = `
+          <div class="text-left">
+            <div class="grid grid-cols-2 gap-2">
+              <div class="flex items-center"><i class="fas fa-city text-white mr-2"></i><span class="font-semibold text-black">City:</span></div>
+              <div class="text-black">${data.city || 'Unknown'}</div>
+              
+              <div class="flex items-center"><i class="fas fa-map text-white mr-2"></i><span class="font-semibold text-black">Region:</span></div>
+              <div class="text-black">${data.region || 'Unknown'}</div>
+              
+              <div class="flex items-center"><i class="fas fa-flag text-white mr-2"></i><span class="font-semibold text-black">Country:</span></div>
+              <div class="text-black">${data.country_name || 'Unknown'}</div>
+              
+              <div class="flex items-center"><i class="fas fa-building text-white mr-2"></i><span class="font-semibold text-black">ISP:</span></div>
+              <div class="text-black">${data.org || 'Unknown'}</div>
+            </div>
+          </div>
+        `;
+        
+        locationResult.innerHTML = locationHTML;
+        mobileLocationResult.innerHTML = mobileLocationHTML;
+      } catch (error) {
+        ipResult.innerHTML = '<div class="text-red-500"><i class="fas fa-exclamation-circle mr-2"></i>Failed to get IP</div>';
+        mobileIpResult.innerHTML = '<div class="text-red-100"><i class="fas fa-exclamation-circle mr-2"></i>Failed to get IP</div>';
+        locationResult.innerHTML = '<div class="text-red-500"><i class="fas fa-exclamation-circle mr-2"></i>Failed to get location data</div>';
+        mobileLocationResult.innerHTML = '<div class="text-red-100"><i class="fas fa-exclamation-circle mr-2"></i>Failed to get location data</div>';
+        console.error('IP lookup error:', error);
+      }
     }
+    
+    checkIpBtn.addEventListener('click', fetchIpAddress);
+    mobileCheckIpBtn.addEventListener('click', fetchIpAddress);
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!desktopToolsBtn.contains(e.target) && !desktopToolsDropdown.contains(e.target)) {
+        desktopToolsDropdown.classList.add('hidden');
+        desktopToolsArrow.classList.remove('rotate-180');
+      }
+      
+      if (!desktopContactBtn.contains(e.target) && !desktopContactDropdown.contains(e.target)) {
+        desktopContactDropdown.classList.add('hidden');
+        desktopContactArrow.classList.remove('rotate-180');
+      }
+    });
     
     // Add event listener for the mobile contact dropdown
     const mobileContactBtn = document.getElementById('mobile-contact-btn');
@@ -255,14 +411,6 @@
       e.preventDefault();
       desktopContactDropdown.classList.toggle('hidden');
       desktopContactArrow.classList.toggle('rotate-180');
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!desktopContactBtn.contains(e.target) && !desktopContactDropdown.contains(e.target)) {
-        desktopContactDropdown.classList.add('hidden');
-        desktopContactArrow.classList.remove('rotate-180');
-      }
     });
   </script>
   
@@ -454,20 +602,38 @@
     </div>
 </div>
 
-<!-- Add this to your style section in the head -->
-<style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .animate-fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
-        opacity: 0;
-    }
-</style>
+<!-- Adding V2Ray Information Section -->
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8 fade-in">What is V2Ray?</h2>
+            <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl shadow-md slide-up">
+                <p class="text-gray-700 leading-relaxed">
+                    V2Ray stands as a robust and versatile open-source solution crafted to empower users in circumventing internet censorship, securing their online actions, and fortifying their digital defenses. With V2Ray, users wield unprecedented control over their internet connectivity.
+                </p>
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow hover-scale">
+                        <div class="text-[#036ED9] text-center mb-2"><i class="fas fa-shield-alt text-2xl"></i></div>
+                        <h3 class="font-semibold text-center">Enhanced Security</h3>
+                        <p class="text-sm text-gray-600 text-center">Advanced encryption protocols to protect your data</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow hover-scale">
+                        <div class="text-[#036ED9] text-center mb-2"><i class="fas fa-bolt text-2xl"></i></div>
+                        <h3 class="font-semibold text-center">High Performance</h3>
+                        <p class="text-sm text-gray-600 text-center">Optimized for speed and reliability</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow hover-scale">
+                        <div class="text-[#036ED9] text-center mb-2"><i class="fas fa-unlock text-2xl"></i></div>
+                        <h3 class="font-semibold text-center">Bypass Restrictions</h3>
+                        <p class="text-sm text-gray-600 text-center">Access content without limitations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-
+<!-- Updated Features section based on tmsvpn.store -->
 <section class="bg-gray-100 py-12">
     <div class="max-w-6xl mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-8 fade-in">Features</h2>
@@ -476,34 +642,35 @@
         <div class="w-full md:w-1/2 space-y-4 slide-up">
           <ul class="space-y-4">
             <li class="flex items-center hover-scale">
-              <svg class="w-6 h-6 text-green-500 mr-2 pulse" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
               </svg>
               <span>Amazing performance.</span>
             </li>
-            <!-- Apply the same hover-scale class to all list items -->
-            <li class="flex items-center">
+            <li class="flex items-center hover-scale">
               <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
               </svg>
               <span>Connect Anywhere.</span>
             </li>
-            <li class="flex items-center">
+            <li class="flex items-center hover-scale">
               <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
               </svg>
               <span>Fast and secure.</span>
-            </li><li class="flex items-center">
-                <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                <span>Internet without limitations.</span>
-              </li><li class="flex items-center">
-                <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                <span>24/7 Customer Support</span>
-              </li>
+            </li>
+            <li class="flex items-center hover-scale">
+              <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Internet without limitations.</span>
+            </li>
+            <li class="flex items-center hover-scale">
+              <svg class="w-6 h-6 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>24/7 Customer Support</span>
+            </li>
           </ul>
         </div>
         
@@ -512,18 +679,9 @@
         </div>
       </div>
     </div>
-  </section>
-  
+</section>
 
-<!-- The "What Our Users Say" section has been removed -->
-
-<style>
-  html {
-      scroll-behavior: smooth;
-  }
-</style>
-
-<!-- footer -->
+<!-- Updated Footer based on tmsvpn.store -->
 <footer class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-6 mt-6">
   <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
     <div class="flex space-x-6">
@@ -542,12 +700,6 @@
     </div>
   </div>
 </footer>
-
-
-
-
-</body>
-</html>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
