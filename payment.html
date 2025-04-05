@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMS-VPN - Order Payment</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #fff;
+        }
+        
+        .modal-container {
+            background-color: rgba(15, 23, 42, 0.95);
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .upload-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-btn input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            cursor: pointer;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="modal-container max-w-4xl w-full rounded-xl shadow-2xl overflow-hidden fade-in">
+            <div class="flex flex-col md:flex-row">
+                <!-- Left side - Package details -->
+                <div class="w-full md:w-1/2 bg-gray-900 p-6">
+                    <div class="flex items-center mb-6">
+                        <a href="WEBSITE.html" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-arrow-left mr-2"></i>Back
+                        </a>
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <div class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] w-16 h-16 rounded-lg mx-auto flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-alt text-2xl text-white"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-gray-400 mb-1">Package:</h3>
+                        <div id="package-name" class="text-white text-lg font-semibold">AIRTEL BYPASS</div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-gray-400 mb-1">Data:</h3>
+                        <div id="data-amount" class="text-white text-lg font-semibold">100 GB</div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-gray-400 mb-1">Duration:</h3>
+                        <div id="duration" class="text-white text-lg font-semibold">30 Days</div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-gray-400 mb-1">Package Combination:</h3>
+                        <div id="package-combo-display" class="text-white text-lg font-semibold">100GB × 30 days</div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-gray-400 mb-1">Required Data Package:</h3>
+                        <div id="required-package" class="text-white text-lg font-semibold">Please select an ISP</div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-gray-400 mb-1">Payment Method:</h3>
+                        <div class="text-white text-lg font-semibold">Bank Transfer</div>
+                    </div>
+                </div>
+                
+                <!-- Right side - Payment details -->
+                <div class="w-full md:w-1/2 bg-gray-800 p-6">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-bold text-white">Total Amount</h2>
+                        <div id="total-amount" class="text-4xl font-bold text-[#0FF0B3] mt-2">LKR 200.00</div>
+                    </div>
+                    
+                    <div id="bank-transfer-details" class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-white rounded-lg p-2 mr-3">
+                                <i class="fas fa-university text-gray-800"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Bank Transfer Details</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="text-sm text-gray-300 space-y-2">
+                            <p><span class="text-gray-400">Name:</span>Thilina Madushanka</p>
+                            <p><span class="text-gray-400">Acc Number:</span>8010517563</p>
+                            <p><span class="text-gray-400">Bank:</span> Commercial Bank</p>
+                            <p><span class="text-gray-400">Branch:</span> Gampola</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-circle text-yellow-400 mr-2"></i>
+                            <p class="text-sm text-gray-300">Send Your Name And the Payment Slip</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4 mt-8">
+                        <button id="cancel-btn" class="w-1/2 bg-gray-700 text-white py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+                            Cancel
+                        </button>
+                        <button id="order-now-btn" class="w-1/2 bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-300 pulse">
+                            Order Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-6 mt-12">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+            <div class="flex space-x-6">
+                <a href="https://wa.me/+94785406391" class="hover:text-green-400" aria-label="Whatsapp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1BAZU6sT6E/" class="hover:text-blue-500" aria-label="Facebook">
+                    <i class="fab fa-facebook-f text-xl"></i>
+                </a>
+                <a href="https://t.me/thiLiya_zz" class="hover:text-blue-500" aria-label="Telegram">
+                    <i class="fab fa-telegram text-xl"></i>
+                </a>
+            </div>
+            <div class="mt-4 md:mt-0 text-center">
+                <p class="text-sm"> 2025 Project TMS-VPN. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get URL parameters to pre-fill the form
+            const urlParams = new URLSearchParams(window.location.search);
+            const plan = urlParams.get('plan');
+            const data = urlParams.get('data');
+            const price = urlParams.get('price');
+            const provider = urlParams.get('provider');
+            
+            // Set values if they exist in URL
+            if (plan) document.getElementById('package-name').textContent = plan + ' PLAN';
+            if (data) document.getElementById('data-amount').textContent = data;
+            if (price) document.getElementById('total-amount').textContent = 'LKR ' + price + '.00';
+            
+            // Map provider codes to full names
+            const providerNames = {
+                'dialog': 'DIALOG WIFI',
+                'slt': 'SLT FIBER/4G',
+                'airtel': 'AIRTEL',
+                'mobitel': 'MOBITEL',
+                'hutch': 'HUTCH'
+            };
+            
+            // Map provider codes to required data packages
+            const requiredDataPackages = {
+                'dialog': 'Dialog Wifi = 724 Work And Learn Lite',
+                'slt': 'SLT 4G/FIBER:<br>• Meet Max 490 Work and Learn<br>• Unlimited Entertainment<br>• Unlimited LTE Flash',
+                'airtel': 'Airtel:<br>• 148 Social Media<br>• 498 Social Media<br>• 1630 Social Media',
+                'mobitel': 'Mobitel = 222 Work And Learn',
+                'hutch': 'Hutch:<br>• Gamer 505 Package<br>• 745 Work And Learn'
+            };
+            
+            // Update the package name with the provider information
+            if (provider) {
+                const providerDisplay = providerNames[provider] || provider.toUpperCase();
+                document.getElementById('package-name').textContent = providerDisplay + ' BYPASS';
+                
+                // Update page title to include provider
+                document.title = 'TMS-VPN - ' + providerDisplay + ' Payment';
+                
+                // Add provider info to the top of the page
+                const packageIcon = document.querySelector('.bg-gradient-to-r.w-16.h-16');
+                if (packageIcon) {
+                    const providerLabel = document.createElement('h2');
+                    providerLabel.className = 'text-xl font-bold mt-2';
+                    providerLabel.textContent = 'Order ' + providerDisplay + ' BYPASS SERVER';
+                    packageIcon.parentNode.appendChild(providerLabel);
+                }
+                
+                // Update required data package
+                const requiredPackage = document.getElementById('required-package');
+                if (requiredPackage && requiredDataPackages[provider]) {
+                    requiredPackage.innerHTML = requiredDataPackages[provider];
+                }
+            }
+            
+            // Set package combination display based on data
+            if (data) {
+                const packageComboDisplay = document.getElementById('package-combo-display');
+                if (packageComboDisplay) {
+                    packageComboDisplay.textContent = data + ' × 30 days';
+                }
+            }
+            
+            // Handle cancel button
+            document.getElementById('cancel-btn').addEventListener('click', function() {
+                window.location.href = 'WEBSITE.html';
+            });
+            
+            // Handle order now button
+            document.getElementById('order-now-btn').addEventListener('click', function() {
+                // Get order details
+                const packageName = document.getElementById('package-name').textContent;
+                const dataAmount = document.getElementById('data-amount').textContent;
+                const price = document.getElementById('total-amount').textContent.replace('LKR ', '').replace('.00', '');
+                
+                // Create WhatsApp message with order details
+                const message = `I want to purchase the ${packageName} (${dataAmount}) for Rs${price}`;
+                const whatsappUrl = `https://wa.me/+94785406391?text=${encodeURIComponent(message)}`;
+                
+                // Redirect to WhatsApp
+                window.location.href = whatsappUrl;
+            });
+        });
+    </script>
+</body>
+</html>
