@@ -16,12 +16,25 @@
 
         body {
             font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body.dark-mode {
             background-color: #0f172a;
             color: #fff;
         }
         
-        .modal-container {
+        body.light-mode {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .modal-container.dark-mode {
             background-color: rgba(15, 23, 42, 0.95);
+        }
+        
+        .modal-container.light-mode {
+            background-color: rgba(248, 250, 252, 0.95);
         }
         
         .hover-scale {
@@ -80,11 +93,73 @@
             cursor: pointer;
             display: block;
         }
+        
+        /* Theme Switch Styles */
+        .theme-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            padding: 5px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .theme-switch {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .theme-switch:hover {
+            transform: translateY(-2px);
+        }
+        
+        .theme-switch i {
+            margin-right: 8px;
+        }
+        
+        /* Light Mode Specific Styles */
+        .light-mode .bg-gray-900 {
+            background-color: #e2e8f0;
+        }
+        
+        .light-mode .bg-gray-800 {
+            background-color: #f1f5f9;
+        }
+        
+        .light-mode .text-gray-400 {
+            color: #64748b;
+        }
+        
+        .light-mode .text-white {
+            color: #1e293b;
+        }
+        
+        .light-mode .text-gray-300 {
+            color: #475569;
+        }
+        
+        .light-mode .bg-gray-700 {
+            background-color: #cbd5e1;
+        }
+        
+        .light-mode .bg-gray-700:hover {
+            background-color: #94a3b8;
+        }
     </style>
 </head>
-<body>
+<body class="dark-mode">
+    <!-- Theme Switch Button -->
+    <div class="theme-switch" id="theme-switch">
+        <i class="fas fa-moon"></i>
+        <span>Dark Mode</span>
+    </div>
+
     <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="modal-container max-w-4xl w-full rounded-xl shadow-2xl overflow-hidden fade-in">
+        <div class="modal-container dark-mode max-w-4xl w-full rounded-xl shadow-2xl overflow-hidden fade-in">
             <div class="flex flex-col md:flex-row">
                 <!-- Left side - Package details -->
                 <div class="w-full md:w-1/2 bg-gray-900 p-6">
@@ -346,7 +421,7 @@
                 </a>
             </div>
             <div class="mt-4 md:mt-0 text-center">
-                <p class="text-sm">© 2025 Project TMS-VPN. All rights reserved.</p>
+                <p class="text-sm"> 2025 Project TMS-VPN. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -484,6 +559,62 @@
                 e.preventDefault();
                 openModal('terms-modal');
             });
+            
+            // Theme switching functionality
+            const themeSwitch = document.getElementById('theme-switch');
+            const body = document.body;
+            const modalContainer = document.querySelector('.modal-container');
+            const themeSwitchIcon = themeSwitch.querySelector('i');
+            const themeSwitchText = themeSwitch.querySelector('span');
+            
+            // Check for saved theme preference or use default
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            
+            // Apply the saved theme on page load
+            if (savedTheme === 'light') {
+                applyLightMode();
+            } else {
+                applyDarkMode();
+            }
+            
+            // Theme switch click handler
+            themeSwitch.addEventListener('click', function() {
+                if (body.classList.contains('dark-mode')) {
+                    applyLightMode();
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    applyDarkMode();
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+            
+            function applyDarkMode() {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                modalContainer.classList.remove('light-mode');
+                modalContainer.classList.add('dark-mode');
+                themeSwitchIcon.className = 'fas fa-moon';
+                themeSwitchText.textContent = 'Dark Mode';
+                
+                // Update modals
+                document.querySelectorAll('.bg-gray-900').forEach(el => {
+                    el.style.transition = 'background-color 0.3s ease';
+                });
+            }
+            
+            function applyLightMode() {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                modalContainer.classList.remove('dark-mode');
+                modalContainer.classList.add('light-mode');
+                themeSwitchIcon.className = 'fas fa-sun';
+                themeSwitchText.textContent = 'Light Mode';
+                
+                // Update modals
+                document.querySelectorAll('.bg-gray-900').forEach(el => {
+                    el.style.transition = 'background-color 0.3s ease';
+                });
+            }
         });
     </script>
 </body>
