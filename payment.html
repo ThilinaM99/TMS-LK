@@ -98,6 +98,7 @@
                         <div class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] w-16 h-16 rounded-lg mx-auto flex items-center justify-center mb-4">
                             <i class="fas fa-shield-alt text-2xl text-white"></i>
                         </div>
+                        <h2 id="provider-title" class="text-xl font-bold mt-2">Order AIRTEL BYPASS SERVER</h2>
                     </div>
                     
                     <div class="mb-6">
@@ -122,7 +123,9 @@
                     
                     <div class="mb-6">
                         <h3 class="text-gray-400 mb-1">Required Data Package:</h3>
-                        <div id="required-package" class="text-white text-lg font-semibold">Please select an ISP</div>
+                        <div id="required-package" class="text-white text-lg font-semibold">
+                            Airtel:<br>• 148 Social Media<br>• 498 Social Media<br>• 1630 Social Media
+                        </div>
                     </div>
                     
                     <div class="mb-6">
@@ -133,12 +136,16 @@
                 
                 <!-- Right side - Payment details -->
                 <div class="w-full md:w-1/2 bg-gray-800 p-6">
-                    <div class="text-center mb-8">
+                    <div class="text-center mb-5">
                         <h2 class="text-2xl font-bold text-white">Total Amount</h2>
                         <div id="total-amount" class="text-4xl font-bold text-[#0FF0B3] mt-2">LKR 200.00</div>
+                        <div class="flex items-center justify-center mt-2">
+                            <i class="fas fa-lock text-green-400 mr-2"></i>
+                            <span class="text-green-400 text-sm">Secure Transaction</span>
+                        </div>
                     </div>
                     
-                    <div id="bank-transfer-details" class="bg-gray-900 rounded-lg p-4 mb-6">
+                    <div id="bank-transfer-details" class="bg-gray-900 rounded-lg p-4 mb-4">
                         <div class="flex items-center mb-4">
                             <div class="bg-white rounded-lg p-2 mr-3">
                                 <i class="fas fa-university text-gray-800"></i>
@@ -149,21 +156,33 @@
                         </div>
                         
                         <div class="text-sm text-gray-300 space-y-2">
-                            <p><span class="text-gray-400">Name:</span>Thilina Madushanka</p>
-                            <p><span class="text-gray-400">Acc Number:</span>8010517563</p>
+                            <p><span class="text-gray-400">Name:</span> Thilina Madushanka</p>
+                            <p><span class="text-gray-400">Acc Number:</span> 8010517563</p>
                             <p><span class="text-gray-400">Bank:</span> Commercial Bank</p>
                             <p><span class="text-gray-400">Branch:</span> Gampola</p>
                         </div>
                     </div>
                     
-                    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                    <div class="bg-gray-900 rounded-lg p-4 mb-4">
                         <div class="flex items-center">
                             <i class="fas fa-exclamation-circle text-yellow-400 mr-2"></i>
                             <p class="text-sm text-gray-300">Send Your Name And the Payment Slip</p>
                         </div>
                     </div>
                     
-                    <div class="flex space-x-4 mt-8">
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-info-circle text-blue-400 mr-2"></i>
+                            <h4 class="font-semibold">What happens next?</h4>
+                        </div>
+                        <ol class="text-sm text-gray-300 list-decimal pl-5 space-y-1">
+                            <li>Make the payment using the details above</li>
+                            <li>Click "Order Now" to send payment proof via WhatsApp</li>
+                            <li>We'll verify and send your VPN credentials within 1 hour</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="flex space-x-4 mt-6">
                         <button id="cancel-btn" class="w-1/2 bg-gray-700 text-white py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-300">
                             Cancel
                         </button>
@@ -171,6 +190,142 @@
                             Order Now
                         </button>
                     </div>
+                    
+                    <div class="mt-4 text-center">
+                        <a href="#" class="text-sm text-gray-400 hover:text-white" id="show-faq">
+                            <i class="fas fa-question-circle mr-1"></i>Frequently Asked Questions
+                        </a> | 
+                        <a href="#" class="text-sm text-gray-400 hover:text-white" id="show-terms">
+                            <i class="fas fa-file-contract mr-1"></i>Terms of Service
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="modal-backdrop fixed inset-0 bg-black opacity-70"></div>
+        <div class="bg-gray-900 rounded-xl p-6 w-full max-w-md relative z-10 slide-up">
+            <div class="text-center mb-6">
+                <div class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-4">
+                    <i class="fas fa-check text-2xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Confirm Your Order</h3>
+            </div>
+            
+            <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                <div class="text-sm space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Package:</span>
+                        <span id="confirm-package" class="text-white font-semibold">AIRTEL BYPASS</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Data:</span>
+                        <span id="confirm-data" class="text-white font-semibold">100 GB</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Duration:</span>
+                        <span id="confirm-duration" class="text-white font-semibold">30 Days</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Payment Method:</span>
+                        <span class="text-white font-semibold">Bank Transfer</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Amount:</span>
+                        <span id="confirm-amount" class="text-white font-semibold">LKR 200.00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center space-x-4">
+                <button id="confirm-cancel" class="bg-gray-700 text-white py-2 px-6 rounded-lg hover:bg-gray-600 transition-all">
+                    Cancel
+                </button>
+                <button id="confirm-proceed" class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-2 px-6 rounded-lg hover:shadow-lg transition-all">
+                    Proceed to WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FAQ Modal -->
+    <div id="faq-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="modal-backdrop fixed inset-0 bg-black opacity-70"></div>
+        <div class="bg-gray-900 rounded-xl p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto relative z-10 slide-up">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Frequently Asked Questions</h3>
+                <button class="modal-close text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">How does TMS-VPN work?</h4>
+                    <p class="text-gray-300 text-sm">TMS-VPN provides specialized bypass server solutions that work with specific ISP data packages. Once you purchase, you'll receive credentials to connect to our server that optimizes your connection.</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">How long after payment will I receive my VPN?</h4>
+                    <p class="text-gray-300 text-sm">After sending payment confirmation via WhatsApp, you'll receive your VPN credentials within 1 hour (typically within 15-30 minutes during business hours).</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">Do I need to purchase a specific data package?</h4>
+                    <p class="text-gray-300 text-sm">Yes, each VPN server is optimized for specific data packages. The required packages are listed in the order details. Our system works best with these specific packages.</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">What if I have issues with my VPN?</h4>
+                    <p class="text-gray-300 text-sm">We provide 24/7 technical support via WhatsApp. Simply contact us with your issue and we'll resolve it promptly.</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">What is your refund policy?</h4>
+                    <p class="text-gray-300 text-sm">We offer a 24-hour satisfaction guarantee. If the service doesn't work as described, we'll provide a full refund. After 24 hours, refunds are handled on a case-by-case basis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Terms Modal -->
+    <div id="terms-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="modal-backdrop fixed inset-0 bg-black opacity-70"></div>
+        <div class="bg-gray-900 rounded-xl p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto relative z-10 slide-up">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Terms of Service</h3>
+                <button class="modal-close text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4 text-sm text-gray-300">
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">1. Service Description</h4>
+                    <p>TMS-VPN provides virtual private network services optimized for specific ISPs in Sri Lanka. Our service allows users to utilize their data packages more efficiently.</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">2. User Responsibilities</h4>
+                    <p>Users are responsible for ensuring they have the required data packages. Users must comply with all applicable laws and regulations while using our service. TMS-VPN should not be used for any illegal activities.</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">3. Payment & Refunds</h4>
+                    <p>All payments are processed manually through bank transfer. We offer a 24-hour satisfaction guarantee. After this period, refunds are considered on a case-by-case basis.</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">4. Service Limitations</h4>
+                    <p>TMS-VPN does not guarantee unlimited bandwidth or speeds. Service quality may vary based on your internet connection and ISP conditions. We reserve the right to limit or terminate service for excessive usage.</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-semibold text-[#0FF0B3] mb-2">5. Privacy Policy</h4>
+                    <p>TMS-VPN collects minimal user data necessary for providing service. We do not sell or share your personal information with third parties. For payment verification, we require your name and payment confirmation.</p>
                 </div>
             </div>
         </div>
@@ -191,7 +346,7 @@
                 </a>
             </div>
             <div class="mt-4 md:mt-0 text-center">
-                <p class="text-sm"> 2025 Project TMS-VPN. All rights reserved.</p>
+                <p class="text-sm">© 2025 Project TMS-VPN. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -237,13 +392,7 @@
                 document.title = 'TMS-VPN - ' + providerDisplay + ' Payment';
                 
                 // Add provider info to the top of the page
-                const packageIcon = document.querySelector('.bg-gradient-to-r.w-16.h-16');
-                if (packageIcon) {
-                    const providerLabel = document.createElement('h2');
-                    providerLabel.className = 'text-xl font-bold mt-2';
-                    providerLabel.textContent = 'Order ' + providerDisplay + ' BYPASS SERVER';
-                    packageIcon.parentNode.appendChild(providerLabel);
-                }
+                document.getElementById('provider-title').textContent = 'Order ' + providerDisplay + ' BYPASS SERVER';
                 
                 // Update required data package
                 const requiredPackage = document.getElementById('required-package');
@@ -260,13 +409,58 @@
                 }
             }
             
+            // Modal handling functions
+            function openModal(modalId) {
+                document.getElementById(modalId).classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+            
+            // Close modal when clicking on backdrop or close button
+            document.querySelectorAll('.modal-backdrop, .modal-close').forEach(element => {
+                element.addEventListener('click', function() {
+                    document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+                        modal.classList.add('hidden');
+                    });
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // Prevent closing when clicking inside modal content
+            document.querySelectorAll('[id$="-modal"] > div:not(.modal-backdrop)').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+            
             // Handle cancel button
             document.getElementById('cancel-btn').addEventListener('click', function() {
                 window.location.href = 'WEBSITE.html';
             });
             
-            // Handle order now button
+            // Handle order now button - Open confirmation modal
             document.getElementById('order-now-btn').addEventListener('click', function() {
+                // Update confirmation details
+                document.getElementById('confirm-package').textContent = document.getElementById('package-name').textContent;
+                document.getElementById('confirm-data').textContent = document.getElementById('data-amount').textContent;
+                document.getElementById('confirm-duration').textContent = document.getElementById('duration').textContent;
+                document.getElementById('confirm-amount').textContent = document.getElementById('total-amount').textContent;
+                
+                // Open confirmation modal
+                openModal('confirmation-modal');
+            });
+            
+            // Handle confirmation modal cancel
+            document.getElementById('confirm-cancel').addEventListener('click', function() {
+                closeModal('confirmation-modal');
+            });
+            
+            // Handle confirmation modal proceed
+            document.getElementById('confirm-proceed').addEventListener('click', function() {
                 // Get order details
                 const packageName = document.getElementById('package-name').textContent;
                 const dataAmount = document.getElementById('data-amount').textContent;
@@ -278,6 +472,17 @@
                 
                 // Redirect to WhatsApp
                 window.location.href = whatsappUrl;
+            });
+            
+            // Show FAQ and Terms modals
+            document.getElementById('show-faq').addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal('faq-modal');
+            });
+            
+            document.getElementById('show-terms').addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal('terms-modal');
             });
         });
     </script>
