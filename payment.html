@@ -274,6 +274,66 @@
                             <i class="fas fa-file-contract mr-1"></i>Terms of Service
                         </a>
                     </div>
+                    
+                    <!-- Payment Slip Upload Section -->
+                    <div id="payment-slip-section" class="mt-8 border border-gray-700 rounded-lg p-4 hidden">
+                        <div class="text-center mb-6">
+                            <div class="bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-4">
+                                <i class="fas fa-check text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Confirm Your Order</h3>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                            <div class="text-sm space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Package:</span>
+                                    <span id="upload-package" class="text-white font-semibold">AIRTEL BYPASS</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Data:</span>
+                                    <span id="upload-data" class="text-white font-semibold">100 GB</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Duration:</span>
+                                    <span id="upload-duration" class="text-white font-semibold">30 Days</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Payment Method:</span>
+                                    <span id="upload-payment-method" class="text-white font-semibold">Bank Transfer</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Amount:</span>
+                                    <span id="upload-amount" class="text-white font-semibold">LKR 200.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-300 mb-2">Your Name:</label>
+                            <input type="text" id="customer-name" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-300 mb-2">Upload Payment Slip:</label>
+                            <div class="upload-btn w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-center hover:bg-gray-600 transition duration-300">
+                                <span id="file-name" class="text-gray-400">Choose file...</span>
+                                <input type="file" id="payment-slip" accept="image/*" class="cursor-pointer">
+                            </div>
+                            <div id="preview-container" class="mt-3 hidden">
+                                <img id="slip-preview" class="w-full rounded-lg" src="" alt="Payment slip preview">
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-4 mt-6">
+                            <button id="upload-cancel" class="w-1/2 bg-gray-700 text-white py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+                                Cancel
+                            </button>
+                            <button id="submit-payment" class="w-1/2 bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition duration-300">
+                                Proceed to WhatsApp
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -340,7 +400,7 @@
             <div class="space-y-4">
                 <div class="bg-gray-800 rounded-lg p-4">
                     <h4 class="font-semibold text-[#0FF0B3] mb-2">How does TMS-VPN work?</h4>
-                    <p class="text-gray-300 text-sm">TMS-VPN provides specialized bypass server solutions that work with specific ISP data packages. Once you purchase, you'll receive credentials to connect to our server that optimizes your connection.</p>
+                    <p class="text-gray-300 text-sm">TMS-VPN provides virtual private network services optimized for specific ISPs in Sri Lanka. Once you purchase, you'll receive credentials to connect to our server that optimizes your connection.</p>
                 </div>
                 
                 <div class="bg-gray-800 rounded-lg p-4">
@@ -517,36 +577,82 @@
                 window.location.href = 'WEBSITE.html';
             });
             
-            // Handle order now button - Open confirmation modal
+            // Handle order now button - Show payment slip upload section
             document.getElementById('order-now-btn').addEventListener('click', function() {
-                // Update confirmation details
-                document.getElementById('confirm-package').textContent = document.getElementById('package-name').textContent;
-                document.getElementById('confirm-data').textContent = document.getElementById('data-amount').textContent;
-                document.getElementById('confirm-duration').textContent = document.getElementById('duration').textContent;
-                document.getElementById('confirm-amount').textContent = document.getElementById('total-amount').textContent;
+                // Update payment slip section details
+                document.getElementById('upload-package').textContent = document.getElementById('package-name').textContent;
+                document.getElementById('upload-data').textContent = document.getElementById('data-amount').textContent;
+                document.getElementById('upload-duration').textContent = document.getElementById('duration').textContent;
+                document.getElementById('upload-amount').textContent = document.getElementById('total-amount').textContent;
                 
-                // Open confirmation modal
-                openModal('confirmation-modal');
+                // Show payment slip upload section
+                document.getElementById('payment-slip-section').classList.remove('hidden');
+                
+                // Hide the order now and cancel buttons
+                this.classList.add('hidden');
+                document.getElementById('cancel-btn').classList.add('hidden');
             });
             
-            // Handle confirmation modal cancel
-            document.getElementById('confirm-cancel').addEventListener('click', function() {
-                closeModal('confirmation-modal');
+            // Handle payment slip section cancel button
+            document.getElementById('upload-cancel').addEventListener('click', function() {
+                // Hide payment slip upload section
+                document.getElementById('payment-slip-section').classList.add('hidden');
+                
+                // Show the order now and cancel buttons
+                document.getElementById('order-now-btn').classList.remove('hidden');
+                document.getElementById('cancel-btn').classList.remove('hidden');
             });
             
-            // Handle confirmation modal proceed
-            document.getElementById('confirm-proceed').addEventListener('click', function() {
-                // Get order details
+            // Submit payment and redirect to WhatsApp
+            const submitPaymentBtn = document.getElementById('submit-payment');
+            const paymentSlipInput = document.getElementById('payment-slip');
+            const fileNameDisplay = document.getElementById('file-name');
+            const previewContainer = document.getElementById('preview-container');
+            const slipPreview = document.getElementById('slip-preview');
+            
+            submitPaymentBtn.addEventListener('click', function() {
+                const customerName = document.getElementById('customer-name').value;
                 const packageName = document.getElementById('package-name').textContent;
                 const dataAmount = document.getElementById('data-amount').textContent;
-                const price = document.getElementById('total-amount').textContent.replace('LKR ', '').replace('.00', '');
+                const duration = document.getElementById('duration').textContent;
+                const totalAmount = document.getElementById('total-amount').textContent;
+                const paymentMethod = document.getElementById('upload-payment-method').textContent;
                 
-                // Create WhatsApp message with order details
-                const message = `I want to purchase the ${packageName} (${dataAmount}) for Rs${price}`;
-                const whatsappUrl = `https://wa.me/+94785406391?text=${encodeURIComponent(message)}`;
+                if (!customerName || !paymentSlipInput.files[0]) {
+                    alert('Please fill in your name and upload your payment slip');
+                    return;
+                }
                 
-                // Redirect to WhatsApp
-                window.location.href = whatsappUrl;
+                // Prepare message for WhatsApp
+                const message = `*New Payment Submission*%0A
+*Package:* ${packageName}%0A
+*Data:* ${dataAmount}%0A
+*Duration:* ${duration}%0A
+*Amount:* ${totalAmount}%0A
+*Payment Method:* ${paymentMethod}%0A
+*Name:* ${customerName}%0A
+*Payment Slip:* Uploaded`;
+                
+                // Open WhatsApp with the message
+                window.open(`https://wa.me/+94785406391?text=${message}`, '_blank');
+            });
+            
+            // Display file name when a file is selected
+            paymentSlipInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    fileNameDisplay.textContent = this.files[0].name;
+                    
+                    // Show image preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        slipPreview.src = e.target.result;
+                        previewContainer.classList.remove('hidden');
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                } else {
+                    fileNameDisplay.textContent = 'Choose file...';
+                    previewContainer.classList.add('hidden');
+                }
             });
             
             // Show FAQ and Terms modals
