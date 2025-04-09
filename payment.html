@@ -205,7 +205,10 @@
                     
                     <div class="mb-6">
                         <h3 class="text-gray-400 mb-1">Payment Method:</h3>
-                        <div class="text-white text-lg font-semibold">Bank Transfer</div>
+                        <select id="payment-method-select" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="bank-transfer">Bank Transfer</option>
+                            <option value="helapay">හෙළPay</option>
+                        </select>
                     </div>
                 </div>
                 
@@ -238,8 +241,24 @@
                         </div>
                     </div>
                     
-                    <div class="bg-gray-900 rounded-lg p-4 mb-4">
-                        <div class="flex items-center">
+                    <div id="helapay-details" class="bg-gray-900 rounded-lg p-4 mb-4 hidden">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-white rounded-lg p-2 mr-3">
+                                <i class="fas fa-mobile-alt text-gray-800"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">හෙළPay Details</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="text-sm text-gray-300 space-y-2">
+                            <p><span class="text-gray-400">Phone Number:</span> +94778809226</p>
+                            <p><span class="text-gray-400">Chat Link:</span> <a href="https://helapay.lk/chat/a44202" target="_blank" class="text-blue-400 hover:text-blue-300">https://helapay.lk/chat/a44202</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <div class="flex items-center mb-2">
                             <i class="fas fa-exclamation-circle text-yellow-400 mr-2"></i>
                             <p class="text-sm text-gray-300">Send Your Name And the Payment Slip</p>
                         </div>
@@ -318,10 +337,19 @@
                             <label class="block text-gray-300 mb-2">Upload Payment Slip:</label>
                             <div class="upload-btn w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-center hover:bg-gray-600 transition duration-300">
                                 <span id="file-name" class="text-gray-400">Choose file...</span>
-                                <input type="file" id="payment-slip" accept="image/*" class="cursor-pointer">
+                                <input type="file" id="payment-slip" accept="image/*,application/pdf" class="cursor-pointer">
                             </div>
                             <div id="preview-container" class="mt-3 hidden">
-                                <img id="slip-preview" class="w-full rounded-lg" src="" alt="Payment slip preview">
+                                <img id="slip-preview" class="w-full rounded-lg hidden" src="" alt="Payment slip preview">
+                                <div id="pdf-preview" class="hidden">
+                                    <div class="bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                        <i class="fas fa-file-pdf text-red-500 text-4xl mr-3"></i>
+                                        <div class="text-left">
+                                            <p class="text-white font-semibold" id="pdf-filename">PDF Document</p>
+                                            <p class="text-gray-400 text-sm">PDF file uploaded successfully</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
@@ -366,7 +394,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-400">Payment Method:</span>
-                        <span class="text-white font-semibold">Bank Transfer</span>
+                        <span id="confirm-payment-method" class="text-white font-semibold">Bank Transfer</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-400">Amount:</span>
@@ -640,15 +668,27 @@
             // Display file name when a file is selected
             paymentSlipInput.addEventListener('change', function() {
                 if (this.files && this.files[0]) {
-                    fileNameDisplay.textContent = this.files[0].name;
+                    const file = this.files[0];
+                    fileNameDisplay.textContent = file.name;
+                    previewContainer.classList.remove('hidden');
                     
-                    // Show image preview
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        slipPreview.src = e.target.result;
-                        previewContainer.classList.remove('hidden');
+                    // Check if the file is a PDF
+                    if (file.type === 'application/pdf') {
+                        // Show PDF preview
+                        document.getElementById('pdf-preview').classList.remove('hidden');
+                        document.getElementById('pdf-filename').textContent = file.name;
+                        slipPreview.classList.add('hidden');
+                    } else {
+                        // Show image preview
+                        document.getElementById('pdf-preview').classList.add('hidden');
+                        slipPreview.classList.remove('hidden');
+                        
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            slipPreview.src = e.target.result;
+                        }
+                        reader.readAsDataURL(file);
                     }
-                    reader.readAsDataURL(this.files[0]);
                 } else {
                     fileNameDisplay.textContent = 'Choose file...';
                     previewContainer.classList.add('hidden');
@@ -664,6 +704,29 @@
             document.getElementById('show-terms').addEventListener('click', function(e) {
                 e.preventDefault();
                 openModal('terms-modal');
+            });
+            
+            // Payment method selection handling
+            const paymentMethodSelect = document.getElementById('payment-method-select');
+            const bankTransferDetails = document.getElementById('bank-transfer-details');
+            const helapayDetails = document.getElementById('helapay-details');
+            
+            paymentMethodSelect.addEventListener('change', function() {
+                // Update the payment method display
+                const selectedMethod = this.value === 'bank-transfer' ? 'Bank Transfer' : 'හෙළPay';
+                
+                // Show/hide appropriate payment details
+                if (this.value === 'bank-transfer') {
+                    bankTransferDetails.classList.remove('hidden');
+                    helapayDetails.classList.add('hidden');
+                } else {
+                    bankTransferDetails.classList.add('hidden');
+                    helapayDetails.classList.remove('hidden');
+                }
+                
+                // Update payment method in confirmation sections
+                document.getElementById('upload-payment-method').textContent = selectedMethod;
+                document.getElementById('confirm-payment-method').textContent = selectedMethod;
             });
             
             // Theme switching functionality
