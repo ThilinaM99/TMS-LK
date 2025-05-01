@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Login functionality -->
     
     <style>
         html {
@@ -884,7 +884,7 @@
   </div>
 </footer>
 
-<!-- Google Sign-In Modal -->
+<!-- Login Modal -->
 <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
       <div class="flex justify-between items-center mb-4">
@@ -893,57 +893,109 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <p class="text-gray-600 mb-6">Sign in with your Google account to access your VPN dashboard and manage your plans.</p>
-      <div class="flex flex-col items-center">
-        <div id="g_id_onload"
-          data-client_id="YOUR_GOOGLE_CLIENT_ID"
-          data-context="signin"
-          data-ux_mode="popup"
-          data-callback="handleCredentialResponse"
-          data-auto_prompt="false">
+      <p class="text-gray-600 mb-6">Sign in to access your VPN dashboard and manage your plans.</p>
+      
+      <!-- Login Form -->
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#036ED9]" required>
         </div>
-
-        <div class="g_id_signin"
-          data-type="standard"
-          data-shape="rectangular"
-          data-theme="outline"
-          data-text="signin_with"
-          data-size="large"
-          data-logo_alignment="center"
-          data-width="300">
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#036ED9]" required>
         </div>
-        <p class="text-sm text-gray-500 mt-4">By signing in, you agree to our Terms of Service and Privacy Policy.</p>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-[#036ED9] focus:ring-[#036ED9] border-gray-300 rounded">
+            <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
+          </div>
+          <a href="#" class="text-sm text-[#036ED9] hover:underline">Forgot password?</a>
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-2 px-4 rounded-md hover:opacity-90 transition-all duration-300">Sign In</button>
+      </form>
+      
+      <!-- Login status message -->
+      <div id="login-status" class="mt-4 text-sm hidden"></div>
+      
+      <!-- Registration Link -->
+      <div class="mt-4 text-center">
+        <p class="text-sm text-gray-600">Don't have an account? <a href="#" id="show-register" class="text-[#036ED9] hover:underline">Register now</a></p>
+      </div>
+      
+      <p class="text-sm text-gray-500 mt-4 text-center">By signing in, you agree to our Terms of Service and Privacy Policy.</p>
+    </div>
+  </div>
+  
+  <!-- Registration Modal -->
+  <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Create an Account</h2>
+        <button id="close-register-modal" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <p class="text-gray-600 mb-6">Create an account to access our VPN services.</p>
+      
+      <!-- Registration Form -->
+      <form id="register-form" class="space-y-4">
+        <div>
+          <label for="reg-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+          <input type="text" id="reg-name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#036ED9]" required>
+        </div>
+        <div>
+          <label for="reg-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="reg-email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#036ED9]" required>
+        </div>
+        <div>
+          <label for="reg-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input type="password" id="reg-password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#036ED9]" required>
+        </div>
+        <div>
+          <label for="reg-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+          <input type="password" id="reg-confirm-password" name="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#036ED9]" required>
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-[#0FF0B3] to-[#036ED9] text-white py-2 px-4 rounded-md hover:opacity-90 transition-all duration-300">Register</button>
+      </form>
+      
+      <!-- Registration status message -->
+      <div id="register-status" class="mt-4 text-sm hidden"></div>
+      
+      <!-- Login Link -->
+      <div class="mt-4 text-center">
+        <p class="text-sm text-gray-600">Already have an account? <a href="#" id="show-login" class="text-[#036ED9] hover:underline">Sign in</a></p>
       </div>
     </div>
   </div>
 
 <script>
-  // Google Sign-In callback function
-  function handleCredentialResponse(response) {
-    // Get the JWT token from the response
-    const token = response.credential;
-    
-    // Store the token in localStorage for later use
-    localStorage.setItem('google_token', token);
-    
-    // Redirect to the My Account page
-    window.location.href = './my-account.html';
-  }
-  
-  // Make the handleCredentialResponse function globally available
-  window.handleCredentialResponse = handleCredentialResponse;
-  
   document.addEventListener('DOMContentLoaded', function() {
-    // My Account button click handler
+    // Demo user credentials
+    const demoUsers = [
+      { email: 'user@example.com', password: 'password123', name: 'John Doe' },
+      { email: 'admin@tms-vpn.com', password: 'admin123', name: 'Admin User' }
+    ];
+    
+    // Elements
     const myAccountBtn = document.getElementById('my-account-btn');
     const loginModal = document.getElementById('login-modal');
-    const closeModal = document.getElementById('close-modal');
+    const registerModal = document.getElementById('register-modal');
+    const closeLoginModal = document.getElementById('close-modal');
+    const closeRegisterModal = document.getElementById('close-register-modal');
+    const showRegisterLink = document.getElementById('show-register');
+    const showLoginLink = document.getElementById('show-login');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginStatus = document.getElementById('login-status');
+    const registerStatus = document.getElementById('register-status');
     
     // Check if user is already logged in
-    const token = localStorage.getItem('google_token');
+    const isLoggedIn = localStorage.getItem('user_token');
     
+    // My Account button click handler
     myAccountBtn.addEventListener('click', function() {
-      if (token) {
+      if (isLoggedIn) {
         // If user is already logged in, redirect to My Account page
         window.location.href = './my-account.html';
       } else {
@@ -952,16 +1004,115 @@
       }
     });
     
-    // Close modal when clicking the close button
-    closeModal.addEventListener('click', function() {
+    // Show register modal
+    showRegisterLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      loginModal.classList.add('hidden');
+      registerModal.classList.remove('hidden');
+    });
+    
+    // Show login modal
+    showLoginLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      registerModal.classList.add('hidden');
+      loginModal.classList.remove('hidden');
+    });
+    
+    // Close login modal
+    closeLoginModal.addEventListener('click', function() {
       loginModal.classList.add('hidden');
     });
     
-    // Close modal when clicking outside the modal content
+    // Close register modal
+    closeRegisterModal.addEventListener('click', function() {
+      registerModal.classList.add('hidden');
+    });
+    
+    // Close modals when clicking outside
     loginModal.addEventListener('click', function(e) {
       if (e.target === loginModal) {
         loginModal.classList.add('hidden');
       }
+    });
+    
+    registerModal.addEventListener('click', function(e) {
+      if (e.target === registerModal) {
+        registerModal.classList.add('hidden');
+      }
+    });
+    
+    // Login form submission
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Find user with matching credentials
+      const user = demoUsers.find(u => u.email === email && u.password === password);
+      
+      if (user) {
+        // Show success message
+        loginStatus.textContent = 'Login successful! Redirecting...';
+        loginStatus.classList.remove('hidden', 'text-red-500');
+        loginStatus.classList.add('text-green-500');
+        
+        // Store user information in localStorage
+        localStorage.setItem('user_token', 'demo_token_' + Date.now());
+        localStorage.setItem('user_name', user.name);
+        localStorage.setItem('user_email', user.email);
+        
+        // Redirect to the My Account page after a short delay
+        setTimeout(() => {
+          window.location.href = './my-account.html';
+        }, 1000);
+      } else {
+        // Show error message
+        loginStatus.textContent = 'Invalid email or password. Please try again.';
+        loginStatus.classList.remove('hidden');
+        loginStatus.classList.add('text-red-500');
+      }
+    });
+    
+    // Registration form submission
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('reg-name').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+      const confirmPassword = document.getElementById('reg-confirm-password').value;
+      
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        registerStatus.textContent = 'Passwords do not match. Please try again.';
+        registerStatus.classList.remove('hidden');
+        registerStatus.classList.add('text-red-500');
+        return;
+      }
+      
+      // Check if email already exists
+      if (demoUsers.some(u => u.email === email)) {
+        registerStatus.textContent = 'Email already exists. Please use a different email.';
+        registerStatus.classList.remove('hidden');
+        registerStatus.classList.add('text-red-500');
+        return;
+      }
+      
+      // Show success message
+      registerStatus.textContent = 'Registration successful! Redirecting to login...';
+      registerStatus.classList.remove('hidden', 'text-red-500');
+      registerStatus.classList.add('text-green-500');
+      
+      // In a real app, we would save the user to a database here
+      // For demo purposes, we'll just simulate a successful registration
+      
+      // Redirect to login after a short delay
+      setTimeout(() => {
+        registerModal.classList.add('hidden');
+        loginModal.classList.remove('hidden');
+        document.getElementById('email').value = email;
+      }, 1500);
     });
     // Update any remaining blue-600 elements to the new gradient
     const blueElements = document.querySelectorAll('.bg-blue-600');
