@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     
     <style>
         html {
@@ -186,6 +187,9 @@
         <a href="./support.html" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white support-link">
           <i class="fas fa-headset mr-2"></i>Support Data Packages
         </a>
+        <button id="my-account-btn" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white">
+          <i class="fas fa-user mr-2"></i>My Account
+        </button>
         <!-- Contact Us dropdown remains unchanged -->
         <div class="relative group">
           <button id="desktop-contact-btn" class="p-2 px-4 transition-all duration-300 ease-in-out hover:text-black hover:rounded-full hover:bg-white flex items-center">
@@ -253,6 +257,8 @@
       </div>
       
       <a href="./support.html" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white support-link">Support Packages</a>
+      
+      <a href="./my-account.html" class="block p-2 transition-all duration-300 ease-in-out hover:text-black hover:rounded-md hover:bg-white"><i class="fas fa-user mr-2"></i>My Account</a>
       
       <!-- Contact dropdown remains unchanged -->
       <div class="relative">
@@ -878,8 +884,85 @@
   </div>
 </footer>
 
+<!-- Google Sign-In Modal -->
+<div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Sign in to My Account</h2>
+        <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <p class="text-gray-600 mb-6">Sign in with your Google account to access your VPN dashboard and manage your plans.</p>
+      <div class="flex flex-col items-center">
+        <div id="g_id_onload"
+          data-client_id="YOUR_GOOGLE_CLIENT_ID"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-callback="handleCredentialResponse"
+          data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin"
+          data-type="standard"
+          data-shape="rectangular"
+          data-theme="outline"
+          data-text="signin_with"
+          data-size="large"
+          data-logo_alignment="center"
+          data-width="300">
+        </div>
+        <p class="text-sm text-gray-500 mt-4">By signing in, you agree to our Terms of Service and Privacy Policy.</p>
+      </div>
+    </div>
+  </div>
+
 <script>
+  // Google Sign-In callback function
+  function handleCredentialResponse(response) {
+    // Get the JWT token from the response
+    const token = response.credential;
+    
+    // Store the token in localStorage for later use
+    localStorage.setItem('google_token', token);
+    
+    // Redirect to the My Account page
+    window.location.href = './my-account.html';
+  }
+  
+  // Make the handleCredentialResponse function globally available
+  window.handleCredentialResponse = handleCredentialResponse;
+  
   document.addEventListener('DOMContentLoaded', function() {
+    // My Account button click handler
+    const myAccountBtn = document.getElementById('my-account-btn');
+    const loginModal = document.getElementById('login-modal');
+    const closeModal = document.getElementById('close-modal');
+    
+    // Check if user is already logged in
+    const token = localStorage.getItem('google_token');
+    
+    myAccountBtn.addEventListener('click', function() {
+      if (token) {
+        // If user is already logged in, redirect to My Account page
+        window.location.href = './my-account.html';
+      } else {
+        // If not logged in, show the login modal
+        loginModal.classList.remove('hidden');
+      }
+    });
+    
+    // Close modal when clicking the close button
+    closeModal.addEventListener('click', function() {
+      loginModal.classList.add('hidden');
+    });
+    
+    // Close modal when clicking outside the modal content
+    loginModal.addEventListener('click', function(e) {
+      if (e.target === loginModal) {
+        loginModal.classList.add('hidden');
+      }
+    });
     // Update any remaining blue-600 elements to the new gradient
     const blueElements = document.querySelectorAll('.bg-blue-600');
     blueElements.forEach(el => {
