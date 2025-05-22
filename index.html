@@ -554,7 +554,8 @@
               <i class="fa-sharp fa-solid fa-chevron-down"></i>
             </div>
           </div>
-          <a href="payment.html?plan=Starter&data=50GB&price=250&provider=Airtel" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+          <a href="payment.html?plan=Starter&data=50GB&price=250&provider=Airtel" class="choose-plan-btn w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+          <div class="error-message mt-2 text-red-500 text-sm hidden">Please select a Network ISP first</div>
       </div>
   </div>
 
@@ -585,7 +586,8 @@
               <i class="fa-sharp fa-solid fa-chevron-down"></i>
             </div>
           </div>
-          <a href="payment.html?plan=Basic&data=100GB&price=300&provider=Airtel" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+          <a href="payment.html?plan=Basic&data=100GB&price=300&provider=Airtel" class="choose-plan-btn w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+          <div class="error-message mt-2 text-red-500 text-sm hidden">Please select a Network ISP first</div>
       </div>
   </div>
 
@@ -616,7 +618,8 @@
                 <i class="fa-sharp fa-solid fa-chevron-down"></i>
               </div>
             </div>
-            <a href="payment.html?plan=Standard&data=200GB&price=400&provider=Airtel" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <a href="payment.html?plan=Standard&data=200GB&price=400&provider=Airtel" class="choose-plan-btn w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <div class="error-message mt-2 text-red-500 text-sm hidden">Please select a Network ISP first</div>
         </div>
     </div>
 
@@ -647,7 +650,8 @@
                 <i class="fa-sharp fa-solid fa-chevron-down"></i>
               </div>
             </div>
-            <a href="payment.html?plan=Pro&data=300GB&price=500&provider=Airtel" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <a href="payment.html?plan=Pro&data=300GB&price=500&provider=Airtel" class="choose-plan-btn w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <div class="error-message mt-2 text-red-500 text-sm hidden">Please select a Network ISP first</div>
         </div>
     </div>
 
@@ -678,7 +682,8 @@
                 <i class="fa-sharp fa-solid fa-chevron-down"></i>
               </div>
             </div>
-            <a href="payment.html?plan=Premium&data=400GB&price=600&provider=Airtel" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <a href="payment.html?plan=Premium&data=400GB&price=600&provider=Airtel" class="choose-plan-btn w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <div class="error-message mt-2 text-red-500 text-sm hidden">Please select a Network ISP first</div>
         </div>
     </div>
 
@@ -709,7 +714,8 @@
                 <i class="fa-sharp fa-solid fa-chevron-down"></i>
               </div>
             </div>
-            <a href="payment.html?plan=Ultimate&data=Unlimited&price=1000&provider=Airtel" class="w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <a href="payment.html?plan=Ultimate&data=Unlimited&price=1000&provider=Airtel" class="choose-plan-btn w-full bg-blue-600 text-white py-2 text-center rounded-lg hover:bg-blue-700 inline-block">Choose Plan</a>
+            <div class="error-message mt-2 text-red-500 text-sm hidden">Please select a Network ISP first</div>
         </div>
     </div>
 </div>
@@ -903,6 +909,46 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Add validation for ISP selection before redirecting to payment page
+    const choosePlanButtons = document.querySelectorAll('.choose-plan-btn');
+    
+    choosePlanButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Find the select element in the same plan card
+        const planCard = this.closest('[class*="max-w-sm"]');
+        const providerSelect = planCard.querySelector('.provider-select');
+        const errorMessage = planCard.querySelector('.error-message');
+        
+        // Check if an ISP is selected
+        if (providerSelect.value === '' || providerSelect.selectedIndex === 0) {
+          // Show error message
+          errorMessage.classList.remove('hidden');
+          
+          // Add shake animation to the error message
+          errorMessage.classList.add('animate-shake');
+          
+          // Highlight the select dropdown with red border
+          providerSelect.classList.add('border-red-500');
+          
+          // Remove animation and border after 2 seconds
+          setTimeout(() => {
+            errorMessage.classList.remove('animate-shake');
+            providerSelect.classList.remove('border-red-500');
+          }, 2000);
+          
+          return false;
+        } else {
+          // Hide error message if it was previously shown
+          errorMessage.classList.add('hidden');
+          
+          // Redirect to the payment page
+          window.location.href = this.getAttribute('href');
+        }
+      });
+    });
+    
     // Update any remaining blue-600 elements to the new gradient
     const blueElements = document.querySelectorAll('.bg-blue-600');
     blueElements.forEach(el => {
@@ -1067,6 +1113,17 @@
     transform: translateY(-50%);
     pointer-events: none;
     color: #036ED9;
+  }
+  
+  /* Add shake animation for error message */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+  
+  .animate-shake {
+    animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
   }
 </style>
 </body>
